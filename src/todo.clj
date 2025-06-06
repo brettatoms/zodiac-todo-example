@@ -113,7 +113,7 @@ title text not null
   (log/info "Stop zodiac...")
   (z/stop system))
 
-(defn -main [& _]
+(defn start []
   (let [project-root (System/getenv "PWD")
         assets-ext (z.assets/init {;; The config file is used by the vite command
                                    ;; so it needs to be an absolute path on the
@@ -139,7 +139,23 @@ title text not null
                                  ;; :request-context {:db (ig/ref ::db)}
                                  :reload-per-request? true}}]
     (ig/load-namespaces system-config)
-    (ig/init system-config)))
+    (try
+      (ig/init system-config)
+      ;; TODO: while true
+      (catch clojure.lang.ExceptionInfo e
+        (log/error "ERROR BUILDING SYSTEM: ")
+        (log/error e)
+        (when-let [system (-> e ex-data :system)]
+          (ig/halt! system))))))
+
+(defn -main [& _]
+  (start)
+
+  ;; block until we're killed
+  (while true
+    (Thread/sleep 1000))
+
+  (System/exit 0))
 
 (comment
   (def ^:dynamic *system* nil)
