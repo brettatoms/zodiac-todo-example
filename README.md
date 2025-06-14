@@ -20,3 +20,5 @@ You will need to install the following dependencies to run the app:
 ```sh
 clojure -M:main
 ```
+
+You can open the app on [localhost:3000](http://localhost:3000)

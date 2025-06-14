@@ -1,7 +1,7 @@
 {:paths ["src" "resources"]
  :deps {org.clojure/clojure {:mvn/version "1.12.0"}
 
-        com.github.brettatoms/zodiac {:mvn/version "0.5.64"}
+        com.github.brettatoms/zodiac {:mvn/version "0.6.65"}
         com.github.brettatoms/zodiac-assets {:mvn/version "0.3.23"}
         com.github.brettatoms/zodiac-sql {:mvn/version "0.1.10"}
 
